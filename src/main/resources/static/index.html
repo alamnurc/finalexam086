@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Final Exam Alam Nurcahaya_20200140086</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script>
+            function get(){
+                let view = document.getElementById("view");
+
+                $.ajax({
+                   url: 'http://localhost:8080/GET',
+                   dataType: 'text',
+                   success: function(result){
+                       view.innerHTML = result;
+                   }
+                });
+            }
+            function post(){
+                let view = document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let nik = document.getElementById("nik").value;
+                let nama = document.getElementById("nama").value;
+                let ttl = document.getElementById("ttl").value;
+                let foto = document.getElementById("foto").value;
+                let timestamp = document.getElementById("timestamp").value;
+                let json = {"id":id, "nik":nik, "nama":nama, "ttl":ttl, "foto":foto, "timestamp":timestamp};
+                let obj = JSON.stringify(json);
+
+                $.ajax({
+                   url: 'http://localhost:8080/POST',
+                   data:obj,
+                   method: 'POST',
+                   contentType: 'application/json',
+                   dataType: 'text',
+                   success: function(result){
+                       view.innerHTML = result;
+                   }
+                });
+            }
+            function put(){
+                let view = document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let nik = document.getElementById("nik").value;
+                let nama = document.getElementById("nama").value;
+                let ttl = document.getElementById("ttl").value;
+                let foto = document.getElementById("foto").value;
+                let timestamp = document.getElementById("timestamp").value;
+                let json = {"id":id, "nik":nik, "nama":nama, "ttl":ttl, "foto":foto, "timestamp":timestamp};
+                let obj = JSON.stringify(json);
+                //view.innerhtml = "alo";
+                $.ajax({
+                   url: 'http://localhost:8080/PUT',
+                   data:obj,
+                   method: 'PUT',
+                   contentType: 'application/json',
+                   dataType: 'text',
+                   success: function(result){
+                       view.innerHTML = result;
+                   }
+                });
+            }
+            function del(){
+                let id = document.getElementById("id").value;
+                let json = { id: id };
+                let nama = document.getElementById("nama").value;
+                let obj = JSON.stringify(json);
+
+                $.ajax({
+                   url: 'http://localhost:8080/DELETE',
+                   data:obj,
+                   method: 'DELETE',
+                   contentType: 'application/json',
+                   dataType: 'text',
+                   success: function(result){
+                       view.innerHTML = result;
+                   }
+                });
+            }
+            
+            
+        </script>
+    </head>
+    <body>
+        <div>Id</div>
+        <input type="text" id="id" name="id"><br>NIK</br>
+        <input type="text" id="nik" name="nik"><br>Nama</br>
+        <input type="text" id="nama" name="nama"><br>Tanggal</br>
+        <input type="date" id="ttl" name="ttl"><br>Foto</br>
+        <input type="file" id="foto" name="foto"><br>Timestamp</br>
+        <input type="time" id="timestamp" name="timestamp"><br>
+        
+        <br>Tanpa foto, 4 fungsi postman berhasil, dengan foto, post dan put di localhost belum bisa</br><br>
+
+        <button onclick="get()">Get/Read</button>
+        <button onclick="post()">Post/Create</button>
+        <button onclick="put()">Put/Update</button>
+        <button onclick="del()">Delete/Drop</button>
+        <br><br>
+        <div id="view">
+        
+    </body>
+</html>
